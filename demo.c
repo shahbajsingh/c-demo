@@ -1,4 +1,63 @@
 #include <stdio.h>
+#include <math.h>
+
+/* Arrays
+
+// Arrays can hold multiple values under the same variable name organized by index
+// Arrays in C are zero-based, meaning they begin at index 0
+
+int main(){
+// The following code defines an array of 10 integers
+int numbers[10];
+
+// The following code populates the array
+for(int i = 0; i < 7; i++){
+    numbers[i] = i * 10;
+}
+
+// Accessing a value in the array is done with the same syntax
+    printf("The 4th number in the array is %d", numbers[3]);
+    return 0;
+}
+
+// Arrays can only have one type of variable because they are implemented in computer memory
+// as a sequence of values
+
+// This allows array access to be very efficient
+
+*/
+
+// The following code calls a method for printing the average of an array
+
+void printAverage(int arr[], int size){
+    int sum = 0;
+    int average = 0;
+
+    for(int i = 0; i < size; i++){
+        sum += arr[i];
+    }
+
+    average = sum / size;
+
+    printf("The average of the array is %d", average);
+
+}
+
+int main(){
+    int my_arr[10];
+    for(int i = 0; i < 10; i++){
+        my_arr[i] = pow(i, 2); // To use powers we have to include <math.h>
+    }
+    
+    printAverage(my_arr, 10);
+    return 0;
+}
+
+
+
+
+// --------------------------------------------------------------------------------------------------------------
+
 
 /* Variables and Types
 
@@ -44,6 +103,7 @@ int main(){
 */
 
 
+// --------------------------------------------------------------------------------------------------------------
 
 
 /* Hello World
