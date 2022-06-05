@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <math.h>
+#include <stdlib.h>
+#include <time.h>
 
 /* CONDITIONS AND CONDITIONAL STATEMENTS
 
@@ -56,6 +58,37 @@ int main(){
 
 
 
+    return 0;
+    
+}
+
+
+
+// The following code prompts the user to guess a random number between 0 and 20
+
+void guessRandom(){
+    // To generate random numbers with time include <stdlib.h> and <time.h>
+    srand(time(NULL));
+    rand();
+    int r = rand() % 100 + 1;
+    int guess;
+
+    printf("Guess an integer between 1 and 100:\n");
+    
+    while(guess != r){
+        scanf("%d", &guess);
+        if (guess > r){
+            printf("Too high, guess again\n");
+        } else if (guess < r){
+            printf("Too low, guess again\n");
+        }
+    }
+    printf("You guessed %i, correct!\n", r);
+}
+
+
+int main(){
+    guessRandom();
     return 0;
 }
 
