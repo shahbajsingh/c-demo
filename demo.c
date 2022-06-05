@@ -3,6 +3,16 @@
 #include <stdlib.h>
 #include <time.h>
 
+
+
+
+
+
+// --------------------------------------------------------------------------------------------------------------
+
+
+
+
 /* CONDITIONS AND CONDITIONAL STATEMENTS
 
 int main(){
@@ -56,10 +66,8 @@ int main(){
         }
     }
 
-
-
     return 0;
-    
+
 }
 
 
@@ -75,7 +83,7 @@ void guessRandom(){
 
     printf("Guess an integer between 1 and 100:\n");
     
-    while(guess != r){
+    while(guess != r){ // This while-loop iterates through the code until the conditon is met
         scanf("%d", &guess);
         if (guess > r){
             printf("Too high, guess again\n");
@@ -222,7 +230,7 @@ int main(){
 // The following code defines an array of 10 integers
 int numbers[10];
 
-// The following code populates the array
+// The following code populates the array using a for-loop to iterate through
 for(int i = 0; i < 7; i++){
     numbers[i] = i * 10;
 }
