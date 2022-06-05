@@ -1,6 +1,74 @@
 #include <stdio.h>
 #include <math.h>
 
+/* CONDITIONS AND CONDITIONAL STATEMENTS
+
+int main(){
+
+    // The if statement allows us to execute code based on the true or false value of
+    // a condition
+
+    // We can make use of comparison operators (< , > , ==) to evaluate a condition
+    // For example
+
+    int a = 1;
+    int b = 2;
+
+    if (a < b){
+        printf("a is smaller than b (1)\n");
+    }
+
+    // We can also use the 'else' keyword to execute code in exception to a condition
+
+    if (a > b){
+        printf("a is larger than b");
+    } else {
+        printf("a is smaller than b (2)\n");
+    }
+
+    // We can else nest these conditional statements
+
+    int x = 3;
+    int y = 3;
+
+    if (a < b){
+        printf("a is smaller than b (3)");
+        printf(" and ");
+        if (x < y){
+            printf("x is smaller than y\n");
+        } else if (x > y){
+            printf("x is greater than y\n");
+        } else if (x == y){
+            printf("x is equal to y\n");
+        }
+    }
+
+    // We can also use logical operators OR (||) and AND (&&) to evaluate multiple statements
+
+    // We use || and && rather than | and & in order to evaluate the veracity of both statements,
+    // the latter operators will not bother evaluating the right-hand operand alone
+
+    if(a < b && x == y){
+        if(x != 3 || y != 4){
+            printf("a is smaller than b (4) and x is equal to y");
+        }
+    }
+
+
+
+    return 0;
+}
+
+*/
+
+
+
+
+// --------------------------------------------------------------------------------------------------------------
+
+
+
+
 /* MULTIDIMENSIONAL ARRAYS
 
 int main(){
@@ -14,7 +82,7 @@ int main(){
 
     char a[1][5] = {
         {'a', 'e', 'i', 'o', 'u'}
-    };
+    }
 
 
     // TWO-DIMENSIONAL ARRAYS
@@ -40,7 +108,7 @@ int main(){
     char b[][5] = {
         {'A', 'E', 'I', 'O', 'U'},
         {'a', 'e', 'i', 'o', 'u'}
-    };
+    }
 
     // However, the [y] value is still necessary, as the compiler cannot infer
     // the number of values per list
@@ -52,7 +120,7 @@ int main(){
         {5, 6, 7, 8, 9}, // Initializers for row indexed by 1 
         {10, 11, 12, 13, 14}, // Initializers for row indexed by 2 
         {15, 16, 17, 18, 19} // Initializers for row indexed by 3 
-    };
+    }
 
     // The inside braces indicate the desired row and are optional
     // The following initialization is functionally the same
@@ -84,7 +152,7 @@ int main(){
     int grades[2][4] = {
         {95, 90, 85, 70},
         {85, 75, 90, 95}
-    };
+    }
 
     for(int i = 0; i < 2; i++){
         average = 0;
@@ -146,7 +214,7 @@ void printAverage(int arr[], int size){
 
     for(int i = 0; i < size; i++){
         sum += arr[i];
-    }
+    } // In C, semicolons are not required after the end of such brackets
 
     average = sum / size;
 
