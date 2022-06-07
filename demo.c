@@ -3,7 +3,77 @@
 #include <stdlib.h>
 #include <time.h>
 
+/* STATIC VARIABLES AND FUNCTIONS
 
+
+
+// By default, variables in C are local to the scope in which they are defined
+// Variables can be declared as static to increase their scope to the file containing them
+
+// Let's consider the following functions where we want to increase the value of count
+
+int counter(){
+    int count = 0;
+    count++;
+    return count;
+}
+
+int main(){
+    printf("First call of count: %d\n", counter());
+    printf("Second call of count: %d\n", counter());
+    return 0;
+}
+
+// Output:
+// First call of count: 1
+// Second call of count: 1
+
+// We can see that count iis not updated because it is removed from memory as soon as
+// the function completes
+
+
+
+// Now let's try using static
+
+int counter(){
+    static int count = 0;
+    count++;
+    return count;
+}
+
+int main(){
+    printf("First call of count: %d\n", counter());
+    printf("Second call of count: %d\n", counter());
+    return 0;
+}
+
+// Output:
+// First call of count: 1
+// Second call of count: 2
+
+// We can see that with the static keyword, the value of variables persists in memory,
+// at least within the scope of the file
+
+
+
+// STATIC FUNCTIONS
+
+// By default, functions are global in C
+// If we precede the function with the keyword static, however, its scope is
+// reduced to the file containing it
+
+// For example
+
+static void printExample(){
+    printf("This static function cannot be called from another file\n");
+}
+
+int main(){
+    printExample();
+    return 0;
+}
+
+*/
 
 
 
