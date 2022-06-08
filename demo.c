@@ -2,10 +2,119 @@
 #include <math.h>
 #include <stdlib.h>
 #include <time.h>
+#include <string.h>
+
+
+/* STRINGS
+
+*/
+
+// Strings in C are functionally arrays of characters
+
+// We have not yet encountered pointers, but we will use pointers to a character array to 
+// define simply strings
+
+int main(){
+    // For example
+
+    // This method of creating strings can be used only for reading
+
+    char * name1 = "John Smith";
+
+    // We will need to define a local character array if we want to manipulate a string
+    // This notation allocates an array variable so we can manipulate it, with the brackets []
+    // left empty so the compiler may calculate the size of the array automatically 
+    
+    char name2[] = "John Smith";
+
+    // This is effectively the same as allocating the size explicity
+    // Note that the size must be 11 despite "John Smith" having 10 characters (space-inclusive)
+    // because there is a special character at the end– a string terminator (equal to zero)
+    // indicating the end of the string
+    
+    char name3[11] = "John Smith";
+
+
+    // STRING FORMATTING USING printf
+
+    // We can use the printf command to format a string alongside other strings
+
+    char * name4 = "Peter Griffin";
+    int helicopters = 35;
+
+    printf("%s has %d helicopters\n", name4, helicopters);
+
+    // Output:
+    // Peter Griffin has 35 helicopters
+
+
+    // STRING LENGTH
+
+    // The strlen() function returns the length of a string which it takes as an argument
+    // Include from <string.h>
+
+    printf("%lu\n", strlen(name4));
+
+    // Output:
+    // 13
+
+
+    // STRING COMPARISON
+
+    // The strncmp() function compares two strings, returning 0 if they are equal and 
+    // another number if not
+
+    // It takes the two strings to be compared as arguments, and the maximum comparison length
+    // An unsafe version of this function exists, strcmp(), but it is not recommended
+
+    char * name5 = "Peter";
+
+    if (strncmp(name5, "Peter", 5) == 0){
+        printf("Strings are equivalent\n");
+    } else {
+        printf("Strings are not equivalent\n");
+    }
+
+    // Output:
+    // Strings are equivalent
+
+
+    // STRING CONCATENATION
+
+    // The strncat() function appends the first n characters of a src string to the 
+    // destination string where n is min(n, length(src))
+
+    // The arguments passed are the destination string, the source string, and n– the maximum
+    // number of characters to be appended
+
+    // For example
+
+    char dest[20] = "Peter ";
+    char src1[20] = "Griffin";
+    char src2[20] = "ffin";
+
+    strncat(dest, src1, 3);
+    printf("%s\n", dest);
+    
+    strncat(dest, src2, 20);
+    printf("%s\n",dest);
+
+    // Output:
+    // Peter Gri
+    // Peter Griffin
+
+    return 0;
+}
+
+
+
+
+// --------------------------------------------------------------------------------------------------------------
+
+
+
 
 /* STATIC VARIABLES AND FUNCTIONS
-
-
 
 // By default, variables in C are local to the scope in which they are defined
 // Variables can be declared as static to increase their scope to the file containing them
