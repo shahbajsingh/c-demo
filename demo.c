@@ -5,7 +5,6 @@
 #include <string.h>
 
 /* POINTERS
-*/
 
 // Pointers also function as variables and play an important role in C
 // They are used in several ways such as:
@@ -85,6 +84,16 @@ int main(){
 
     return 0;
 }
+
+*/
+
+
+
+
+// --------------------------------------------------------------------------------------------------------------
+
+
+
 
 /* STRINGS
 
