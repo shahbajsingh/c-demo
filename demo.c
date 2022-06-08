@@ -4,10 +4,89 @@
 #include <time.h>
 #include <string.h>
 
+/* POINTERS
+*/
+
+// Pointers also function as variables and play an important role in C
+// They are used in several ways such as:
+//
+// Strings
+// Dynamic memory allocation
+// Sending function arguments by reference
+// Building complicated data structures
+// Pointing to functions
+// Building special data structures like trees, tries, etc. 
+
+// A pointer in essence is a simple integer variable that holds a memory address
+// which points to a value, rather than holding the actual value itself
+
+// The sequential configuration of data storage in computer memory memory allows
+// pointers to exist, pointing to an arbitrary amount of memory addresses
+
+// This is already evident in the discussion of strings, but now we can analyze them further
+
+// Note that strings in C are called 'C-strings' to differentiate them from strings in C++
+
+int main(){
+
+    // Let's look at an example
+    
+    char * name1 = "Peter";
+
+    // This line of code does three things:
+    //
+    // Allocates a local variable in the stack called 'name1', which is a pointer to a single character
+    // Causes "Peter" to appear in program memory after compile and execution time
+    // Initializes the 'name1' argument to point where the 'P' character resides (followed sequentially by 'eter')
+
+    // If we try to access the name1 variable as an array, it will works and return the 
+    // ordinal value of the character P, since the name1 variable actually points to the beginning of the string
+
+    // Because we know that memory is stored sequentially, we can assume that if we move ahead to the next
+    // character, we'll receive the next letter in the string, until we reach the end of the string marked by a
+    // null terminator (\0)
+
+    printf("%s\n", name1);
+
+
+    // DEREFERENCING
+
+    // Dereferencing concerns referencing to where the pointer points rather than the memory address itself
+
+    // For example, the brackets operator accesses specific items in the array,
+    // i.e., name1[0] would access 'P'
+
+    // Since arrays in C are actually pointers, accessing the first item in the array is the same as 
+    // dereferencing a pointer
+
+    // Let's take a look at the following code
+
+    int a = 1; // defines a local variable
+
+    int * pointer_to_a = &a; // defines a pointer variable and point it to a using & operator
+
+    printf("The value of a is %d\n", a);
+    printf("We can also access the value of a with the pointer– %d\n", *pointer_to_a);
+
+    // We have used the & operator to point at the variable a
+    // We then referred to it using the dereferencing operator
+
+    // We can also change the contents of the dereferenced variable 
+
+    a += 1; // changes the value of a directly
+
+    *pointer_to_a += 2; // changes the value of a indirectly
+
+    printf("The value of a is now %d\n", a);
+
+    // Output:
+    // The value of a is now 4
+
+
+    return 0;
+}
 
 /* STRINGS
-
-*/
 
 // Strings in C are functionally arrays of characters
 
@@ -105,6 +184,8 @@ int main(){
 
     return 0;
 }
+
+*/
 
 
 
