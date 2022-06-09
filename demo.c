@@ -120,6 +120,30 @@ int main(){
     return 0;
 }
 
+
+
+// The following code defines a data structure named 'person' which contains a string
+// (pointer to a char array) called 'name' and an integer called age
+
+typedef struct{
+    char * name;
+    int age;
+} person;
+
+int main(){
+    person peter;
+
+    peter.name = "Peter Griffin";
+    peter.age = 45;
+
+    printf("%s is %d years old\n", peter.name, peter.age);
+    
+    // Output:
+    // Peter Griffin is 45 years old 
+
+    return 0;
+}
+
 */
 
 
