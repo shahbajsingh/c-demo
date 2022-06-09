@@ -4,7 +4,122 @@
 #include <time.h>
 #include <string.h>
 
-/*
+/* STRUCTURES
+
+// Structures in C are special large variables which contain numerous named variables within
+// Structures in C are the basic foundation for objects and class
+
+// They are used for things such as:
+//
+// Serialization of data
+// Passing multiple arguments in and out of functions through a single argument
+// Data structures such as linked lists, binary trees, etc.
+
+// The most basic example of structures are points, which are a single entity with variables x and y
+struct point
+{
+    int x;
+    int y;
+};
+
+// Now let's define a poiint and use it
+// Let's also create a draw function which simulates the output of a drawing program
+
+// In fact we will define two functions, one called drawPoint() and the other called drawCoords()
+// Since C does not support object-oriented features such as method overloading (found in C++ and Java),
+// we cannot have two functions of the same name which have different parameters
+
+void drawCoords(int x, int y){
+    printf("Point drawn at (%d, %d)\n", x, y);
+}
+
+void drawPoint(struct point p){
+    printf("Point drawn at (%d, %d)\n", p.x, p.y);
+}
+
+int main(){
+    int a = 2;
+    int b = 3;
+    drawCoords(a, b);
+
+    // Note that we use the dot operator to access the point's variables
+    struct point p;
+    p.x = 4;
+    p.y = 5;
+
+    drawPoint(p);
+
+    // Output:
+    // Point drawn at (2, 3)
+    // Point drawn at (4, 5)
+
+    return 0;
+
+}
+
+
+
+// TYPEDEFS
+
+// Typedefs allow us to define types with a different name, which is useful when deaaling with
+// structs and pointers
+
+// Here, we will be redefining the point structure using the following syntax which will allow us
+// to remove the keyword struct whenever we want to define a new point
+
+typedef struct{
+    int x;
+    int y;
+} point;
+
+int main(){
+
+    // This will now allow us to define points as such
+    point p;
+    p.x = 2;
+    p.y = 3;
+
+    return 0;
+}
+
+
+
+// OTHER USES
+
+// Structures can also hold pointers, which allow them to hold strings or pointers to other
+// structures
+
+// For example, we can define a vehicle structure with the following configuration
+
+typedef struct{
+    char * brand;
+    char * model;
+    int year;
+} vehicle;
+
+// Because brand is a char pointer, the vehicle type can contain a string value, which here 
+// corresponds to the brand name
+
+void printCarDetails(vehicle v){
+    printf("%d %s %s\n", v.year, v.brand, v.model);
+}
+
+
+int main(){
+    vehicle mycar;
+
+    mycar.brand = "Honda";
+    mycar.model = "Accord";
+    mycar.year = 2022;
+
+    printCarDetails(mycar);
+    
+    // Output:
+    // 2022 Honda Accord
+
+    return 0;
+}
+
 */
 
 
@@ -117,7 +232,7 @@ int main(){
 
     // Output:
     // n is 11
-    
+
 }
 
 */
