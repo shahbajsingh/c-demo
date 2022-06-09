@@ -4,6 +4,17 @@
 #include <time.h>
 #include <string.h>
 
+/*
+*/
+
+
+
+
+// --------------------------------------------------------------------------------------------------------------
+
+
+
+
 /* POINTERS
 
 // Pointers also function as variables and play an important role in C
@@ -83,6 +94,30 @@ int main(){
 
 
     return 0;
+
+}
+
+
+
+// The following code creates a pointer to a local variable 'n' called
+// pointer_to_n, and uses it toincrease the value of n by one
+
+int main(){
+    int n = 10;
+
+    int * pointer_to_n = &n;
+
+    *pointer_to_n += 1;
+
+    // Confirm
+    if (pointer_to_n != &n || *pointer_to_n != 11) return 1;
+
+    printf("n is %d\n", n);
+    return 0;
+
+    // Output:
+    // n is 11
+    
 }
 
 */
