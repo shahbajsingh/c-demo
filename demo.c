@@ -4,6 +4,66 @@
 #include <time.h>
 #include <string.h>
 
+/* FUNCTION ARGUMENTS BY REFERENCE
+
+// We are aware that function arguments are passed by value; they are copied in and out of the functions
+// We will now be inspecting the behavior of passing pointers to these values rather than the values themselves
+
+// For example, let us try defining a function that will double a number
+
+void doubleVal(int n){
+    // n is a local variable and only exists within the scope of the function
+    n *= 2; // this is why doubling it has no effect
+}
+
+int main(){
+    int n = 2;
+    
+    printf("Before calling doubleVal(): %d\n", n);
+    doubleVal(n);
+    printf("After calling doubleVal(): %d\n", n);
+
+    // Output:
+    // Before calling doubleVal(): 2 
+    // After calling doubleVal(): 2
+
+    return 0;
+}
+
+// We can see that this does not work
+*/
+
+
+// Now let's try using pointers
+
+void doubleVal(int *n){
+    // here n is a pointer and points to a memory-address outside the scope of the function
+    (*n) *= 2; // this allows the function to successfully double the number
+}
+
+int main(){
+    int n = 2;
+
+    printf("Before calling doubleVal(): %d\n", n);
+    // we must pass a reference to the variable n, not the variable itself
+    doubleVal(&n); // this is done so the function knows the address of the variable rather than passing a copy
+    printf("After calling doubleVal(): %d\n", n);
+
+    // Output:
+    // Before calling doubleVal(): 2
+    // After calling doubleVal(): 4
+
+    return 0;
+}
+
+
+
+
+// --------------------------------------------------------------------------------------------------------------
+
+
+
+
 /* STRUCTURES
 
 // Structures in C are special large variables which contain numerous named variables within
@@ -123,7 +183,7 @@ int main(){
 
 
 // The following code defines a data structure named 'person' which contains a string
-// (pointer to a char array) called 'name' and an integer called age
+// (pointer to a char array) called 'name' and an integer called 'age'
 
 typedef struct{
     char * name;
