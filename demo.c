@@ -31,7 +31,7 @@ int main(){
 }
 
 // We can see that this does not work
-*/
+
 
 
 // Now let's try using pointers
@@ -55,6 +55,76 @@ int main(){
 
     return 0;
 }
+
+
+
+// POINTERS TO STRUCTURES
+
+// Say we want to create a function that moves a point forward by 
+// 2 units in the x direction and 1 unit in the y direction
+
+// Instead of sending two distinct pointers, we can use structures to send just one
+
+typedef struct{
+    int x;
+    int y;
+} point;
+
+void up1Right2(point * p){
+    (*p).x += 2;
+    (*p).y += 1;
+}
+
+int main(){
+    point p;
+    p.x = 1;
+    p.y = 1;
+
+    printf("Before moving point p: (%d, %d)\n", p.x, p.y);
+    up1Right2(&p);
+    printf("After moving point p: (%d, %d)\n", p.x, p.y);
+
+    // Output:
+    // Before moving point p: (1, 1)
+    // After moving point p: (3, 2)
+
+
+    return 0;
+}
+
+
+
+// To dereference a structure and access one of its internal members, we are able 
+// to use the shorthand syntax
+
+typedef struct{
+    int x;
+    int y;
+} point;
+
+void up1Right2(point * p){
+    p->x+=2;
+    p->y+=1;
+}
+
+int main(){
+    point p;
+    p.x = 1;
+    p.y = 1;
+
+    printf("Before moving point p: (%d, %d)\n", p.x, p.y);
+    up1Right2(&p);
+    printf("After moving point p: (%d, %d)\n", p.x, p.y);
+
+    // Output:
+    // Before moving point p: (1, 1)
+    // After moving point p: (3, 2)
+
+    return 0;
+
+}
+
+*/
 
 
 
@@ -312,10 +382,11 @@ int main(){
     if (pointer_to_n != &n || *pointer_to_n != 11) return 1;
 
     printf("n is %d\n", n);
-    return 0;
 
     // Output:
     // n is 11
+
+    return 0;
 
 }
 
