@@ -4,6 +4,97 @@
 #include <time.h>
 #include <string.h>
 
+/* DYNAMIC ALLOCATION
+
+// Dynamic allocation of memory allows us to build complex data structures, 
+// namely linked lists
+
+// Dynamic allocation of memory helps us to store data without initially having
+// to know the size of the data when we write our program
+
+// In order to dynamically allocate a chunk of memory, we need to have a pointer
+// ready to store the location of this new memory allocation
+
+// We can access any allocated memory using the respective pointers, and we can
+// use such a pointer to free the memory up again once we're done with it
+
+// For example, let us dynamically allocate a person structure, defined as so
+
+typedef struct{
+    char * name;
+    int exotic_fish;
+} person;
+
+int main(){
+    // To allocate a new person in the my_person argument, 
+    // we use the following syntax
+
+    person * my_person = (person *) malloc(sizeof(person));
+
+    // The compiler takes this and dynamically allocates just enough memory to
+    // hold a person struct and then return a pointer of type person to the 
+    // newly allocated data
+
+    // malloc() reserves the specified memroy space, in this case the size of
+    // 'person' in bytes
+
+    // We write (person *) before calling malloc() because malloc() returns a 
+    // 'void pointer'– a pointer that has no type
+
+    // Preceding the call to malloc() with (person *) is called typecasting,
+    // it changes the type of pointer returned from malloc() to be of type
+    // 'person'
+    //
+    // Note that this isn't strictly necessary because the C compiler implicitly
+    // converts the type of pointer returned from malloc() if we don't typecast
+
+    // Also note that sizeof() is not an actual function, but rather a way of 
+    // telling the compiler to translate the struct into its actual memory size
+
+    // To access the members of the struct, we can use the shorthand notation
+    // previously detailed below 
+
+    my_person->name = "Rick Sanchez";
+    my_person->exotic_fish = 7000;
+
+    printf("%s has %d exotic fish in his aquarium\n", my_person->name, my_person->exotic_fish);
+
+    // Output:
+    // Rick Sanchez has 7000 exotic fish in his aquarium
+
+    // After we are done using the dynamically allocated struct, we can release 
+    // its space in memory by passing our person to free()
+    //
+    // Note that this does not delete the my_person variable itself, but rather
+    // releases the data that it points to
+
+    free(my_person);
+
+    // my_person will still point to somewhere in memory, but in trying to call
+    // it again we will no longer be able to access it
+    //
+    // We should therefore not use this pointer again until we again need to 
+    // dynamically allocate data
+
+    printf("%s has %d exotic fish in his aquarium\n", my_person->name, my_person->exotic_fish);
+
+    // Output:
+    // zsh: segmentation fault {filepath}
+
+
+    return 0;
+}
+
+*/
+
+
+
+
+// --------------------------------------------------------------------------------------------------------------
+
+
+
+
 /* FUNCTION ARGUMENTS BY REFERENCE
 
 // We are aware that function arguments are passed by value; they are copied in and out of the functions
