@@ -85,6 +85,31 @@ int main(){
     return 0;
 }
 
+
+
+// The following code is an example of using malloc() to dynamically allocate
+// a point structure
+
+typedef struct{
+    int x;
+    int y;
+} point;
+
+int main(){
+    point * p;
+
+    p = (point *) malloc(sizeof(point));
+
+    p->x=37; p->y=108;
+
+    printf("Point p is at coordinate (%d, %d)\n", p->x, p->y);
+    
+    // Output:
+    // Point p is at coordinate (37, 108)
+
+    return 0;
+}
+
 */
 
 
