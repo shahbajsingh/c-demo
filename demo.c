@@ -4,6 +4,62 @@
 #include <time.h>
 #include <string.h>
 
+/* ARRAYS AND POINTERS
+*/
+
+// We've learned that a pointer to a given data type can store the address
+// of any variable of that specific data type
+
+int main(){
+    // For example, the following pointer variable 'pc' stores the 
+    // address of the char variable c, where 'c' is a scalar variable 
+    // that can only store a single character value
+    
+    char c = 'X';
+    char *pc = &c;
+
+
+    // Let us now explore pointers to arrays
+
+    char vowels[] = {'A', 'E', 'I', 'O', 'U'};
+    char *pvowels = vowels;
+    int i;
+
+    // print addresses
+
+    for(i = 0; i < 5; i++){
+        printf("&vowels[%d]: %p, pvowels + %d: %p, vowels + %d: %p\n", i, &vowels[i], i, pvowels + i, i, vowels + i);
+    }
+
+    // print values
+
+    for(i = 0; i < 5; i++){
+        printf("vowels[%d]: %c, *(pvowels + %d): %c, *(vowels + %d): %c\n", i, vowels[i], i, *(pvowels + i), i, *(vowels + i));
+    }
+
+    // Output:
+    // &vowels[0]: 0x7ff7be5436bb, pvowels + 0: 0x7ff7be5436bb, vowels + 0: 0x7ff7be5436bb
+    // &vowels[1]: 0x7ff7be5436bc, pvowels + 1: 0x7ff7be5436bc, vowels + 1: 0x7ff7be5436bc
+    // &vowels[2]: 0x7ff7be5436bd, pvowels + 2: 0x7ff7be5436bd, vowels + 2: 0x7ff7be5436bd
+    // &vowels[3]: 0x7ff7be5436be, pvowels + 3: 0x7ff7be5436be, vowels + 3: 0x7ff7be5436be
+    // &vowels[4]: 0x7ff7be5436bf, pvowels + 4: 0x7ff7be5436bf, vowels + 4: 0x7ff7be5436bf
+    // vowels[0]: A, *(pvowels + 0): A, *(vowels + 0): A
+    // vowels[1]: E, *(pvowels + 1): E, *(vowels + 1): E
+    // vowels[2]: I, *(pvowels + 2): I, *(vowels + 2): I
+    // vowels[3]: O, *(pvowels + 3): O, *(vowels + 3): O
+    // vowels[4]: U, *(pvowels + 4): U, *(vowels + 4): U
+
+    return 0;
+}
+
+
+
+
+// --------------------------------------------------------------------------------------------------------------
+
+
+
+
 /* DYNAMIC ALLOCATION
 
 // Dynamic allocation of memory allows us to build complex data structures, 
@@ -84,7 +140,7 @@ int main(){
 
     return 0;
 }
-
+-- tack here the comment-terminating asterisk when running code snippet below--
 
 
 // The following code is an example of using malloc() to dynamically allocate
@@ -147,7 +203,7 @@ int main(){
 }
 
 // We can see that this does not work
-
+-- tack here the comment-terminating asterisk when running code snippet below--
 
 
 // Now let's try using pointers
@@ -171,7 +227,7 @@ int main(){
 
     return 0;
 }
-
+-- tack here the comment-terminating asterisk when running code snippet below--
 
 
 // POINTERS TO STRUCTURES
@@ -207,7 +263,7 @@ int main(){
 
     return 0;
 }
-
+-- tack here the comment-terminating asterisk when running code snippet below--
 
 
 // To dereference a structure and access one of its internal members, we are able 
@@ -302,7 +358,7 @@ int main(){
     return 0;
 
 }
-
+-- tack here the comment-terminating asterisk when running code snippet below--
 
 
 // TYPEDEFS
@@ -327,7 +383,7 @@ int main(){
 
     return 0;
 }
-
+-- tack here the comment-terminating asterisk when running code snippet below--
 
 
 // OTHER USES
@@ -365,7 +421,7 @@ int main(){
 
     return 0;
 }
-
+-- tack here the comment-terminating asterisk when running code snippet below--
 
 
 // The following code defines a data structure named 'person' which contains a string
@@ -481,7 +537,7 @@ int main(){
     return 0;
 
 }
-
+-- tack here the comment-terminating asterisk when running code snippet below--
 
 
 // The following code creates a pointer to a local variable 'n' called
@@ -650,7 +706,7 @@ int main(){
 
 // We can see that count iis not updated because it is removed from memory as soon as
 // the function completes
-
+-- tack here the comment-terminating asterisk when running code snippet below--
 
 
 // Now let's try using static
@@ -673,7 +729,7 @@ int main(){
 
 // We can see that with the static keyword, the value of variables persists in memory,
 // at least within the scope of the file
-
+-- tack here the comment-terminating asterisk when running code snippet below--
 
 
 // STATIC FUNCTIONS
@@ -759,7 +815,7 @@ int main(){
     return 0;
 
 }
-
+-- tack here the comment-terminating asterisk when running code snippet below--
 
 
 // The following code prompts the user to guess a random number between 0 and 20
@@ -867,7 +923,7 @@ int main(){
 
     return 0;
 }
-
+-- tack here the comment-terminating asterisk when running code snippet below--
 
 
 // The following code finds the average grades for a group of four students for two courses– 
@@ -934,7 +990,7 @@ for(int i = 0; i < 7; i++){
 // as a sequence of values
 
 // This allows array access to be very efficient
-
+-- tack here the comment-terminating asterisk when running code snippet below--
 
 
 // The following code calls a method for printing the average of an array
