@@ -5,7 +5,6 @@
 #include <string.h>
 
 /* ARRAYS AND POINTERS
-*/
 
 // We've learned that a pointer to a given data type can store the address
 // of any variable of that specific data type
@@ -49,9 +48,150 @@ int main(){
     // vowels[3]: O, *(pvowels + 3): O, *(vowels + 3): O
     // vowels[4]: U, *(pvowels + 4): U, *(vowels + 4): U
 
+
+    // As expected, '&vowels[i]' gives the memory location of the ith element of the 'vowels' array
+    // Since this is a char array, each element occupies one byte so that consecutive memory addresses 
+    // are separated by a single byte
+
+    // We also created a 'pvowels' pointer and assigned the address of the 'vowels' array to it
+
+    // 'pvowels + i' is a valid operation (reference pointer arithmetics)
+    // The output shows that '&vowels[i]' and 'pvowels + i' are equivalent
+
+    // We can also see that 'pvowels + i' and 'vowels + i' return the same value–
+    // the address of the ith element of the 'vowels' array
+
+    // *(pvowels + i) and *(vowels + i) also both return the ith element of the 'vowels' array
+
+    // This is because the name of an array itself is a constant pointer to the first element of the array
+    // Thus 'vowels', '&vowels[0]', and 'vowels + 0' all represent the same location in memory
+
     return 0;
 }
+-- tack here the comment-terminating asterisk when running code snippet below--
 
+
+// DYNAMIC MEMORY ALLOCATION FOR ARRAYS
+
+// At this point we are able to traverse arrays using pointers
+// We can also dynamically allocate continuous bytes of memory using block pointers
+// These two concepts in tandem allow us to dynamically allocate memory for an array
+
+int main(){
+
+    // allocate five continuous bytes of memory to store five chars
+
+    int n = 5;
+    char *pvowels = (char *) malloc(n * sizeof(char));
+    int i;
+
+    pvowels[0] = 'A';
+    pvowels[1] = 'E';
+    *(pvowels + 2) = 'I';
+    *(pvowels + 3) = 'O';
+    *(pvowels + 4) = 'U';
+
+    // traverse blocks of memory as if 'pvowels' is an array
+    // remember that in reality it is but a pointer
+
+    for(i = 0; i < n; i++){
+        printf("%c ", pvowels[i]);
+    }
+
+    printf("\n");
+
+    // Output:
+    // A E I O U
+
+    free(pvowels);
+
+    for(i = 0; i < n; i++){
+        printf("%c ", pvowels[i]);
+    }
+
+    // Output:
+    // @ � 3 � w 
+
+    // Such manipulation of memory for array-like behavior can be useful for situations
+    // where exact array size is unknown, so traditional instantiation would not work
+
+    // This has the benefit of allowing us to free up memory when we are done with the array,
+    // however with great memory manipulation power comes great responsibility, so we must only call
+    // free() when we have absolutely exhausted the functionality of the dynamic array in our program
+
+    return 0;
+}
+-- tack here the comment-terminating asterisk when running code snippet below--
+
+*/
+// To get a better look at the behavior of n-dimensional arrays, let us dynamically
+// allocate memory for a two-dimensional array
+
+// Unlike one-dimensional arrays, where we used a single pointer, we will now require
+// a pointer to a pointer as well
+
+int main(){
+    int nrows = 2;
+    int ncols = 5;
+    int i, j;
+
+    // allocate memory for nrows pointers
+    
+    char **pvowels = (char **) malloc(nrows * sizeof(char *)); // note (char *) rather than (char)
+
+    // for each row, allocate memory for ncols values
+    
+    pvowels[0] = (char *) malloc(ncols * sizeof(char));
+    pvowels[1] = (char *) malloc(ncols * sizeof (char));
+
+    pvowels[0][0] = 'A';
+    pvowels[0][1] = 'E';
+    pvowels[0][2] = 'I';
+    pvowels[0][3] = 'O';
+    pvowels[0][4] = 'U';
+
+    pvowels[1][0] = 'a';
+    pvowels[1][1] = 'e';
+    pvowels[1][2] = 'i';
+    pvowels[1][3] = 'o';
+    pvowels[1][4] = 'u';
+
+    // use pointers to iterate through memory
+    
+    for(i = 0; i < nrows; i++){
+        for(j = 0; j < ncols; j++){
+            printf("%c ", pvowels[i][j]);
+        }
+        printf("\n");
+    }
+
+    // Output:
+    // A E I O U
+    // a e i o u
+
+    // free individual rows
+    
+    free(pvowels[0]);
+    free(pvowels[1]);
+
+    // free top-level pointer
+    
+    free(pvowels);
+
+    // use pointers to iterate through newly freed memory
+    
+    for(i = 0; i < nrows; i++){
+        for(j = 0; j < ncols; j++){
+            printf("%c ", pvowels[i][j]);
+        }
+        printf("\n");
+    }
+    
+    // Output:
+    // zsh: segmentation fault
+
+    return 0;
+}
 
 
 
