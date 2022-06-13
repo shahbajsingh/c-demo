@@ -4,6 +4,12 @@
 #include <time.h>
 #include <string.h>
 
+
+// --------------------------------------------------------------------------------------------------------------
+
+
+
+
 /* ARRAYS AND POINTERS
 
 // We've learned that a pointer to a given data type can store the address
@@ -68,7 +74,7 @@ int main(){
 
     return 0;
 }
--- tack here the comment-terminating asterisk when running code snippet below--
+-- tack comment terminator asterisk when running code snippet below --
 
 
 // DYNAMIC MEMORY ALLOCATION FOR ARRAYS
@@ -121,9 +127,9 @@ int main(){
 
     return 0;
 }
--- tack here the comment-terminating asterisk when running code snippet below--
+-- tack comment terminator asterisk when running code snippet below --
 
-*/
+
 // To get a better look at the behavior of n-dimensional arrays, let us dynamically
 // allocate memory for a two-dimensional array
 
@@ -192,6 +198,9 @@ int main(){
 
     return 0;
 }
+
+*/
+
 
 
 
@@ -280,7 +289,7 @@ int main(){
 
     return 0;
 }
--- tack here the comment-terminating asterisk when running code snippet below--
+-- tack comment terminator asterisk when running code snippet below --
 
 
 // The following code is an example of using malloc() to dynamically allocate
@@ -343,7 +352,7 @@ int main(){
 }
 
 // We can see that this does not work
--- tack here the comment-terminating asterisk when running code snippet below--
+-- tack comment terminator asterisk when running code snippet below --
 
 
 // Now let's try using pointers
@@ -367,7 +376,7 @@ int main(){
 
     return 0;
 }
--- tack here the comment-terminating asterisk when running code snippet below--
+-- tack comment terminator asterisk when running code snippet below --
 
 
 // POINTERS TO STRUCTURES
@@ -403,7 +412,7 @@ int main(){
 
     return 0;
 }
--- tack here the comment-terminating asterisk when running code snippet below--
+-- tack comment terminator asterisk when running code snippet below --
 
 
 // To dereference a structure and access one of its internal members, we are able 
@@ -498,7 +507,7 @@ int main(){
     return 0;
 
 }
--- tack here the comment-terminating asterisk when running code snippet below--
+-- tack comment terminator asterisk when running code snippet below --
 
 
 // TYPEDEFS
@@ -523,7 +532,7 @@ int main(){
 
     return 0;
 }
--- tack here the comment-terminating asterisk when running code snippet below--
+-- tack comment terminator asterisk when running code snippet below --
 
 
 // OTHER USES
@@ -561,7 +570,7 @@ int main(){
 
     return 0;
 }
--- tack here the comment-terminating asterisk when running code snippet below--
+-- tack comment terminator asterisk when running code snippet below --
 
 
 // The following code defines a data structure named 'person' which contains a string
@@ -677,7 +686,7 @@ int main(){
     return 0;
 
 }
--- tack here the comment-terminating asterisk when running code snippet below--
+-- tack comment terminator asterisk when running code snippet below --
 
 
 // The following code creates a pointer to a local variable 'n' called
@@ -846,7 +855,7 @@ int main(){
 
 // We can see that count iis not updated because it is removed from memory as soon as
 // the function completes
--- tack here the comment-terminating asterisk when running code snippet below--
+-- tack comment terminator asterisk when running code snippet below --
 
 
 // Now let's try using static
@@ -869,7 +878,7 @@ int main(){
 
 // We can see that with the static keyword, the value of variables persists in memory,
 // at least within the scope of the file
--- tack here the comment-terminating asterisk when running code snippet below--
+-- tack comment terminator asterisk when running code snippet below --
 
 
 // STATIC FUNCTIONS
@@ -955,7 +964,7 @@ int main(){
     return 0;
 
 }
--- tack here the comment-terminating asterisk when running code snippet below--
+-- tack comment terminator asterisk when running code snippet below --
 
 
 // The following code prompts the user to guess a random number between 0 and 20
@@ -1063,7 +1072,7 @@ int main(){
 
     return 0;
 }
--- tack here the comment-terminating asterisk when running code snippet below--
+-- tack comment terminator asterisk when running code snippet below --
 
 
 // The following code finds the average grades for a group of four students for two courses– 
@@ -1130,7 +1139,7 @@ for(int i = 0; i < 7; i++){
 // as a sequence of values
 
 // This allows array access to be very efficient
--- tack here the comment-terminating asterisk when running code snippet below--
+-- tack comment terminator asterisk when running code snippet below --
 
 
 // The following code calls a method for printing the average of an array
