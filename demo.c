@@ -4,6 +4,63 @@
 #include <time.h>
 #include <string.h>
 
+/* RECURSION
+*/
+
+// Recursion allows a function to call itself, within itself, resulting in
+// more simplified, elegant code 
+
+// It can also result in unexpectedly large memory usage if not handled well
+
+// Common examples of recursion use cases include:
+//
+// Walking recursive data structures– binary trees, linked lists, etc.
+//
+// Exploring possible scenarios in games like chess
+
+// Recursion consists of two main parts– 
+//
+// A terminating base case that indicates when recursion will finish
+//
+// A function call to itself that must make progress towards the base case
+
+// An example of recursion is the following code, which performes multiplication
+// using recursive addition
+
+int multiply(int x, int y){
+
+    // if x < y, swap numbers
+
+    if (x < y)
+        return multiply(y, x);
+
+    // calculate y times sum of x through recursive iteration
+
+    else if (y != 0)
+        return (x + multiply(x, y - 1));
+
+    // if either number is zero, return zero (base case)
+
+    else
+        return 0;
+
+}
+
+int main(){
+
+    int x = 10;
+    int y = 4;
+
+    printf("%d\n", multiply(x, y));
+    
+    // Output:
+    // 40
+
+    return 0;
+}
+
+
+
 
 // --------------------------------------------------------------------------------------------------------------
 
