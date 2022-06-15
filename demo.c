@@ -5,7 +5,6 @@
 #include <string.h>
 
 /* RECURSION
-*/
 
 // Recursion allows a function to call itself, within itself, resulting in
 // more simplified, elegant code 
@@ -58,6 +57,41 @@ int main(){
 
     return 0;
 }
+-- tack comment terminator asterisk when running code snippet below --
+
+*/
+// The following function factorial() will compute the factorial of an integer
+// by recursive multiplication
+
+int factorial(int number);
+
+int main(){
+    // test code
+
+    printf("0! = %i\n", factorial(0));
+    printf("1! = %i\n", factorial(1));
+    printf("3! = %i\n", factorial(3));
+    printf("5! = %i\n", factorial(5));
+
+    // Output:
+    // 0! = 1
+    // 1! = 1
+    // 3! = 6
+    // 5! = 120
+
+
+    return 0;
+}
+
+int factorial(int num){
+    if (num > 1){
+        return num * factorial(num - 1);
+    } else {
+        return 1;
+    }
+}
+
+
 
 
 
