@@ -4,6 +4,118 @@
 #include <time.h>
 #include <string.h>
 
+/* LINKED LISTS 
+*/
+
+// Linked lists function as an array that can grow and shrink as needed,
+// from any point in the array
+
+// They also have a few advantages over conventional arrays:
+//
+// 1. Items can be added or removed from any point in the middle of the list
+//
+// 2. There is no need to define an initial size
+
+// However they also have a few disadvantages:
+//
+// 1. There is no 'random' access– it is impossible to reach the nth item in
+// the array without first iterating through each item preceding it, thus we 
+// have to start from the beginning of the list and count each iteration until
+// we arrive at our item
+//
+// 2. Dynamic memory allocation and pointers are needed, which complicated our code
+// and increases the risk of memory leaks and segment faults
+//
+// 3. Linked lists have a much greater overhead than arrays– since linked list
+// items are dynamically allocated (also less efficient in memory usage) and each
+// item in the list must also store an additional pointer, pointing to the next item
+
+
+// A linked list is functionally a set of dynamically allocated nodes, arranged in a way
+// such that each node contains one value and one pointer
+
+// The pointer always points to the next member of the list
+
+// If the pointer is NULL, then it is the last node in the list
+
+// A linked list is held using a local pointer variable which points
+// to the first item, or head node, of the list
+
+// If this local pointer variable is also NULL, then the list is considered empty
+
+
+// The following is a visual diagram of how we may conceptialize linked lists:
+
+/*
+
+    ------------------------------              ------------------------------
+    |              |             |            \ |              |             |
+    |     DATA     |     NEXT    |--------------|     DATA     |     NEXT    |
+    |              |             |            / |              |             |
+    ------------------------------              ------------------------------
+
+*/
+
+// Let's define a list node, and define our node type 'node_t'
+
+typedef struct node{
+    int val;
+    struct node * next;
+} node_t;
+
+// Notice that C allows us to define the struct in a recursive manner
+
+int main(){
+
+    // Now we can use the nodes
+
+    // Let's create a local variable which points to the first item of the list 
+    // (the head node)
+
+    node_t * head = NULL;
+    head = (node_t *) malloc(sizeof(node_t));
+
+    if (head == NULL){
+        return 1;
+    }
+
+    head->val = 2;
+    head->next = NULL;
+
+    // We've now created the first variable in our list, setting the value
+    // of the node and setting the next ittem to be empty
+
+    // Notice that we should always check if malloc returns a NULL value or not
+
+    
+    // To add a variable to the end of the list, we can just continue to advance 
+    // to the next pointer
+
+    head->next = (node_t *) malloc(sizeof(node_t));
+    head->next->val = 3;
+    head->next->next = NULL;
+
+    // This can go on ad infinitum, but we should rather advance to the last
+    // item of the list, until the 'next' variable is NULL
+
+    printf("The value of head is %d\n", head->val);
+    printf("The value of the node after head is %d\n", head->next->val);
+
+    // Output:
+    // The value of head is 2
+    // The value of the node after head is 3
+
+    return 0;
+}
+
+
+
+
+// --------------------------------------------------------------------------------------------------------------
+
+
+
+
 /* RECURSION
 
 // Recursion allows a function to call itself, within itself, resulting in
@@ -59,7 +171,7 @@ int main(){
 }
 -- tack comment terminator asterisk when running code snippet below --
 
-*/
+
 // The following function factorial() will compute the factorial of an integer
 // by recursive multiplication
 
@@ -91,7 +203,7 @@ int factorial(int num){
     }
 }
 
-
+*/
 
 
 
