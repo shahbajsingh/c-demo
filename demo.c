@@ -4,8 +4,7 @@
 #include <time.h>
 #include <string.h>
 
-/* LINKED LISTS 
-*/
+/* LINKED LISTS
 
 // Linked lists function as an array that can grow and shrink as needed,
 // from any point in the array
@@ -19,7 +18,7 @@
 // However they also have a few disadvantages:
 //
 // 1. There is no 'random' access– it is impossible to reach the nth item in
-// the array without first iterating through each item preceding it, thus we 
+// the array without first iterating through each item preceding it, thus we
 // have to start from the beginning of the list and count each iteration until
 // we arrive at our item
 //
@@ -44,17 +43,17 @@
 // If this local pointer variable is also NULL, then the list is considered empty
 
 
-// The following is a visual diagram of how we may conceptialize linked lists:
+// The following is a visual diagram of how we may conceptualize linked lists:
 
-/*
 
-    ------------------------------              ------------------------------
-    |              |             |            \ |              |             |
-    |     DATA     |     NEXT    |--------------|     DATA     |     NEXT    |
-    |              |             |            / |              |             |
-    ------------------------------              ------------------------------
 
-*/
+//    ------------------------------              ------------------------------
+//    |              |             |            \ |              |             |
+//    |     DATA     |     NEXT    |--------------|     DATA     |     NEXT    |
+//    |              |             |            / |              |             |
+//    ------------------------------              ------------------------------
+
+
 
 // Let's define a list node, and define our node type 'node_t'
 
@@ -69,7 +68,7 @@ int main(){
 
     // Now we can use the nodes
 
-    // Let's create a local variable which points to the first item of the list 
+    // Let's create a local variable which points to the first item of the list
     // (the head node)
 
     node_t * head = NULL;
@@ -87,8 +86,8 @@ int main(){
 
     // Notice that we should always check if malloc returns a NULL value or not
 
-    
-    // To add a variable to the end of the list, we can just continue to advance 
+
+    // To add a variable to the end of the list, we can just continue to advance
     // to the next pointer
 
     head->next = (node_t *) malloc(sizeof(node_t));
@@ -107,19 +106,237 @@ int main(){
 
     return 0;
 }
+-- tack comment terminator asterisk when running code snippet below --
+
+*/
+// ITERATING OVER A LINKED LIST
+
+// Let's build a function that prints out all the items of a list
+
+typedef struct node{
+    int val;
+    struct node * next;
+} node_t;
+
+void print_list(node_t *head){
+    // In order to do this, we need to use a 'current' pointer with which
+    // to keep track of the node we are currently pointing to
+
+    node_t *current = head;
+
+    // After printing the value of the node, we will set the current pointer
+    // to the next node, print again, and repeat until the end of the list
+    // is reached
+
+    printf("LINKED LIST: \n");
+
+        while (current != NULL){
+        printf("[ %d ]->", current->val);
+        current = current->next;
+    }
+
+    printf("[/]\n");
+}
+
+// PUSHING A NODE TO THE TAIL END OF A LINKED LIST
+
+// In order to iterate over all members of a linked list, we use the 'current' pointer
+// We begin from the head and in each step advance the pointer until the end
+
+void push_to_tail(node_t *head, int val){
+    node_t *current = head;
+
+    while (current->next != NULL){
+        current = current->next;
+    }
+
+    // Now we can add a new node
+    current->next = (node_t *)malloc(sizeof(node_t));
+    current->next->val = val;
+    current->next->next = NULL;
+}
+
+// PUSHING A NODE TO THE HEAD END OF A LINKED LIST
+
+// To add to the beginning of a list, we have to create a new node and set its value,
+// link it to the current head of the list, and set the head to point to the new node
+
+// We want to modify the head variable, so we will have to pass a pointer to the
+// pointer variable (a double pointer) so we will be able to modify the pointer itself
+
+void push_to_head(node_t **head, int val){
+    node_t *new_node;
+
+    new_node = (node_t *)malloc(sizeof(node_t));
+
+    new_node->val = val;
+    new_node->next = *head;
+    *head = new_node;
+}
+
+// REMOVING THE FIRST ITEM OF A LINKED LIST
+
+// To pop a variable, we will have the reverse the above function, effectively
+// taking the item to which the current head points, freeing the head item,
+// and setting the head to point to the following node
+
+int remove_head(node_t ** head){
+    int retval = -1;
+    node_t * next_node = NULL;
+
+    if (*head == NULL){
+        return -1;
+    }
+
+    next_node = (*head)->next;
+    retval = (*head)->val;
+    free(*head);
+    *head = next_node;
+
+    return retval;
+}
+
+// REMOVING THE LAST ITEM OF A LINKED LIST
+
+// Removing the tail item from a linked list is similar to adding it to the
+// end, however since we have to change the item preceding the last one to
+// point to null, we actually have to look two nodes ahead when iterating in
+// order to find the tail
+
+int remove_tail(node_t *head){
+    int retval = 0;
+
+    // If there is only one item in the last, remove it
+    if (head->next == NULL){
+        retval = head->val;
+        free(head);
+        return retval;
+    }
+
+    // Iterate until the second to last node
+    node_t *current = head;
+
+    while (current->next->next != NULL){
+        current = current->next;
+    }
+
+    // Now current points to the second to last node
+    retval = current->next->val;
+
+    free(current->next);
+    current->next = NULL;
+
+    return retval;
+}
+
+// REMOVING SPECIFIC ITEMS IN A LINKED LIST
+
+// Te remove specific items, either by index or value, we will have to iterate
+// through the linked list and continuously look ahead to find the node to remove
+
+// We will have to iterate to the node we want to delete, save it in a temporary pointer,
+// set the preceding node's 'next' pointer to point to the node after that deleted, and finally
+// delete the node at hand
+
+// We also have to take care of a few edge cases
 
 
+int remove_by_index(node_t **head, int n){
+    int i;
+    int retval = -1;
 
+    node_t *current = *head;
+    node_t *temp_node = NULL;
+
+    if (n == 0){
+        return remove_head(head);
+    }
+
+    for (i = 0; i < (n - 1); i++){
+        if (current->next == NULL){
+            return -1;
+        }
+        current = current->next;
+    }
+
+    if (current->next == NULL){
+        return -1;
+    }
+
+    temp_node = current->next;
+    retval = temp_node->val;
+    current->next = temp_node->next;
+    free(temp_node);
+
+    return retval;
+}
+
+int remove_by_value(node_t **head, int val){
+    node_t *previous, *current;
+
+    if (*head == NULL){
+        return -1;
+    }
+
+    if ((*head)->val == val){
+        return remove_head(head);
+    }
+
+    previous = *head;
+    current = (*head)->next;
+    while (current){
+        if (current->val == val){
+            previous->next = current->next;
+            free(current);
+            return val;
+        }
+
+        previous = current;
+        current = current->next;
+    }
+    return -1;
+}
+
+void delete_list(node_t *head){
+    node_t *current = head,
+           *next = head;
+
+    while (current){
+        next = current->next;
+        free(current);
+        current = next;
+    }
+}
+
+int main(void){
+    node_t *test_list = (node_t *)malloc(sizeof(node_t));
+
+    test_list->val = 1;
+    test_list->next = (node_t *)malloc(sizeof(node_t));
+    test_list->next->val = 2;
+    test_list->next->next = (node_t *)malloc(sizeof(node_t));
+    test_list->next->next->val = 3;
+    test_list->next->next->next = (node_t *)malloc(sizeof(node_t));
+    test_list->next->next->next->val = 4;
+    test_list->next->next->next->next = NULL;
+
+    remove_by_value(&test_list, 3);
+
+    print_list(test_list);
+    delete_list(test_list);
+
+    // Output:
+    // [ 1 ]->[ 2 ]->[ 4 ]->[/]
+
+    return 0;
+}
 
 // --------------------------------------------------------------------------------------------------------------
-
-
-
 
 /* RECURSION
 
 // Recursion allows a function to call itself, within itself, resulting in
-// more simplified, elegant code 
+// more simplified, elegant code
 
 // It can also result in unexpectedly large memory usage if not handled well
 
@@ -129,7 +346,7 @@ int main(){
 //
 // Exploring possible scenarios in games like chess
 
-// Recursion consists of two main parts– 
+// Recursion consists of two main parts–
 //
 // A terminating base case that indicates when recursion will finish
 //
@@ -163,7 +380,7 @@ int main(){
     int y = 4;
 
     printf("%d\n", multiply(x, y));
-    
+
     // Output:
     // 40
 
@@ -205,13 +422,7 @@ int factorial(int num){
 
 */
 
-
-
-
 // --------------------------------------------------------------------------------------------------------------
-
-
-
 
 /* ARRAYS AND POINTERS
 
@@ -219,10 +430,10 @@ int factorial(int num){
 // of any variable of that specific data type
 
 int main(){
-    // For example, the following pointer variable 'pc' stores the 
-    // address of the char variable c, where 'c' is a scalar variable 
+    // For example, the following pointer variable 'pc' stores the
+    // address of the char variable c, where 'c' is a scalar variable
     // that can only store a single character value
-    
+
     char c = 'X';
     char *pc = &c;
 
@@ -259,7 +470,7 @@ int main(){
 
 
     // As expected, '&vowels[i]' gives the memory location of the ith element of the 'vowels' array
-    // Since this is a char array, each element occupies one byte so that consecutive memory addresses 
+    // Since this is a char array, each element occupies one byte so that consecutive memory addresses
     // are separated by a single byte
 
     // We also created a 'pvowels' pointer and assigned the address of the 'vowels' array to it
@@ -319,7 +530,7 @@ int main(){
     }
 
     // Output:
-    // @ � 3 � w 
+    // @ � 3 � w
 
     // Such manipulation of memory for array-like behavior can be useful for situations
     // where exact array size is unknown, so traditional instantiation would not work
@@ -345,11 +556,11 @@ int main(){
     int i, j;
 
     // allocate memory for nrows pointers
-    
+
     char **pvowels = (char **) malloc(nrows * sizeof(char *)); // note (char *) rather than (char)
 
     // for each row, allocate memory for ncols values
-    
+
     pvowels[0] = (char *) malloc(ncols * sizeof(char));
     pvowels[1] = (char *) malloc(ncols * sizeof (char));
 
@@ -366,7 +577,7 @@ int main(){
     pvowels[1][4] = 'u';
 
     // use pointers to iterate through memory
-    
+
     for(i = 0; i < nrows; i++){
         for(j = 0; j < ncols; j++){
             printf("%c ", pvowels[i][j]);
@@ -379,23 +590,23 @@ int main(){
     // a e i o u
 
     // free individual rows
-    
+
     free(pvowels[0]);
     free(pvowels[1]);
 
     // free top-level pointer
-    
+
     free(pvowels);
 
     // use pointers to iterate through newly freed memory
-    
+
     for(i = 0; i < nrows; i++){
         for(j = 0; j < ncols; j++){
             printf("%c ", pvowels[i][j]);
         }
         printf("\n");
     }
-    
+
     // Output:
     // zsh: segmentation fault
 
@@ -404,17 +615,11 @@ int main(){
 
 */
 
-
-
-
 // --------------------------------------------------------------------------------------------------------------
-
-
-
 
 /* DYNAMIC ALLOCATION
 
-// Dynamic allocation of memory allows us to build complex data structures, 
+// Dynamic allocation of memory allows us to build complex data structures,
 // namely linked lists
 
 // Dynamic allocation of memory helps us to store data without initially having
@@ -434,19 +639,19 @@ typedef struct{
 } person;
 
 int main(){
-    // To allocate a new person in the my_person argument, 
+    // To allocate a new person in the my_person argument,
     // we use the following syntax
 
     person * my_person = (person *) malloc(sizeof(person));
 
     // The compiler takes this and dynamically allocates just enough memory to
-    // hold a person struct and then return a pointer of type person to the 
+    // hold a person struct and then return a pointer of type person to the
     // newly allocated data
 
     // malloc() reserves the specified memroy space, in this case the size of
     // 'person' in bytes
 
-    // We write (person *) before calling malloc() because malloc() returns a 
+    // We write (person *) before calling malloc() because malloc() returns a
     // 'void pointer'– a pointer that has no type
 
     // Preceding the call to malloc() with (person *) is called typecasting,
@@ -456,11 +661,11 @@ int main(){
     // Note that this isn't strictly necessary because the C compiler implicitly
     // converts the type of pointer returned from malloc() if we don't typecast
 
-    // Also note that sizeof() is not an actual function, but rather a way of 
+    // Also note that sizeof() is not an actual function, but rather a way of
     // telling the compiler to translate the struct into its actual memory size
 
     // To access the members of the struct, we can use the shorthand notation
-    // previously detailed below 
+    // previously detailed below
 
     my_person->name = "Rick Sanchez";
     my_person->exotic_fish = 7000;
@@ -470,7 +675,7 @@ int main(){
     // Output:
     // Rick Sanchez has 7000 exotic fish in his aquarium
 
-    // After we are done using the dynamically allocated struct, we can release 
+    // After we are done using the dynamically allocated struct, we can release
     // its space in memory by passing our person to free()
     //
     // Note that this does not delete the my_person variable itself, but rather
@@ -481,7 +686,7 @@ int main(){
     // my_person will still point to somewhere in memory, but in trying to call
     // it again we will no longer be able to access it
     //
-    // We should therefore not use this pointer again until we again need to 
+    // We should therefore not use this pointer again until we again need to
     // dynamically allocate data
 
     printf("%s has %d exotic fish in his aquarium\n", my_person->name, my_person->exotic_fish);
@@ -511,7 +716,7 @@ int main(){
     p->x=37; p->y=108;
 
     printf("Point p is at coordinate (%d, %d)\n", p->x, p->y);
-    
+
     // Output:
     // Point p is at coordinate (37, 108)
 
@@ -520,13 +725,7 @@ int main(){
 
 */
 
-
-
-
 // --------------------------------------------------------------------------------------------------------------
-
-
-
 
 /* FUNCTION ARGUMENTS BY REFERENCE
 
@@ -542,13 +741,13 @@ void doubleVal(int n){
 
 int main(){
     int n = 2;
-    
+
     printf("Before calling doubleVal(): %d\n", n);
     doubleVal(n);
     printf("After calling doubleVal(): %d\n", n);
 
     // Output:
-    // Before calling doubleVal(): 2 
+    // Before calling doubleVal(): 2
     // After calling doubleVal(): 2
 
     return 0;
@@ -584,7 +783,7 @@ int main(){
 
 // POINTERS TO STRUCTURES
 
-// Say we want to create a function that moves a point forward by 
+// Say we want to create a function that moves a point forward by
 // 2 units in the x direction and 1 unit in the y direction
 
 // Instead of sending two distinct pointers, we can use structures to send just one
@@ -618,7 +817,7 @@ int main(){
 -- tack comment terminator asterisk when running code snippet below --
 
 
-// To dereference a structure and access one of its internal members, we are able 
+// To dereference a structure and access one of its internal members, we are able
 // to use the shorthand syntax
 
 typedef struct{
@@ -650,13 +849,7 @@ int main(){
 
 */
 
-
-
-
 // --------------------------------------------------------------------------------------------------------------
-
-
-
 
 /* STRUCTURES
 
@@ -751,7 +944,7 @@ typedef struct{
     int year;
 } vehicle;
 
-// Because brand is a char pointer, the vehicle type can contain a string value, which here 
+// Because brand is a char pointer, the vehicle type can contain a string value, which here
 // corresponds to the brand name
 
 void printCarDetails(vehicle v){
@@ -767,7 +960,7 @@ int main(){
     mycar.year = 2022;
 
     printCarDetails(mycar);
-    
+
     // Output:
     // 2022 Honda Accord
 
@@ -791,22 +984,16 @@ int main(){
     peter.age = 45;
 
     printf("%s is %d years old\n", peter.name, peter.age);
-    
+
     // Output:
-    // Peter Griffin is 45 years old 
+    // Peter Griffin is 45 years old
 
     return 0;
 }
 
 */
 
-
-
-
 // --------------------------------------------------------------------------------------------------------------
-
-
-
 
 /* POINTERS
 
@@ -818,7 +1005,7 @@ int main(){
 // Sending function arguments by reference
 // Building complicated data structures
 // Pointing to functions
-// Building special data structures like trees, tries, etc. 
+// Building special data structures like trees, tries, etc.
 
 // A pointer in essence is a simple integer variable that holds a memory address
 // which points to a value, rather than holding the actual value itself
@@ -833,7 +1020,7 @@ int main(){
 int main(){
 
     // Let's look at an example
-    
+
     char * name1 = "Peter";
 
     // This line of code does three things:
@@ -842,7 +1029,7 @@ int main(){
     // Causes "Peter" to appear in program memory after compile and execution time
     // Initializes the 'name1' argument to point where the 'P' character resides (followed sequentially by 'eter')
 
-    // If we try to access the name1 variable as an array, it will works and return the 
+    // If we try to access the name1 variable as an array, it will works and return the
     // ordinal value of the character P, since the name1 variable actually points to the beginning of the string
 
     // Because we know that memory is stored sequentially, we can assume that if we move ahead to the next
@@ -859,7 +1046,7 @@ int main(){
     // For example, the brackets operator accesses specific items in the array,
     // i.e., name1[0] would access 'P'
 
-    // Since arrays in C are actually pointers, accessing the first item in the array is the same as 
+    // Since arrays in C are actually pointers, accessing the first item in the array is the same as
     // dereferencing a pointer
 
     // Let's take a look at the following code
@@ -874,7 +1061,7 @@ int main(){
     // We have used the & operator to point at the variable a
     // We then referred to it using the dereferencing operator
 
-    // We can also change the contents of the dereferenced variable 
+    // We can also change the contents of the dereferenced variable
 
     a += 1; // changes the value of a directly
 
@@ -916,19 +1103,13 @@ int main(){
 
 */
 
-
-
-
 // --------------------------------------------------------------------------------------------------------------
-
-
-
 
 /* STRINGS
 
 // Strings in C are functionally arrays of characters
 
-// We have not yet encountered pointers, but we will use pointers to a character array to 
+// We have not yet encountered pointers, but we will use pointers to a character array to
 // define simply strings
 
 int main(){
@@ -940,15 +1121,15 @@ int main(){
 
     // We will need to define a local character array if we want to manipulate a string
     // This notation allocates an array variable so we can manipulate it, with the brackets []
-    // left empty so the compiler may calculate the size of the array automatically 
-    
+    // left empty so the compiler may calculate the size of the array automatically
+
     char name2[] = "John Smith";
 
     // This is effectively the same as allocating the size explicity
     // Note that the size must be 11 despite "John Smith" having 10 characters (space-inclusive)
     // because there is a special character at the end– a string terminator (equal to zero)
     // indicating the end of the string
-    
+
     char name3[11] = "John Smith";
 
 
@@ -978,7 +1159,7 @@ int main(){
 
     // STRING COMPARISON
 
-    // The strncmp() function compares two strings, returning 0 if they are equal and 
+    // The strncmp() function compares two strings, returning 0 if they are equal and
     // another number if not
 
     // It takes the two strings to be compared as arguments, and the maximum comparison length
@@ -998,7 +1179,7 @@ int main(){
 
     // STRING CONCATENATION
 
-    // The strncat() function appends the first n characters of a src string to the 
+    // The strncat() function appends the first n characters of a src string to the
     // destination string where n is min(n, length(src))
 
     // The arguments passed are the destination string, the source string, and n– the maximum
@@ -1012,7 +1193,7 @@ int main(){
 
     strncat(dest, src1, 3);
     printf("%s\n", dest);
-    
+
     strncat(dest, src2, 20);
     printf("%s\n",dest);
 
@@ -1025,13 +1206,7 @@ int main(){
 
 */
 
-
-
-
 // --------------------------------------------------------------------------------------------------------------
-
-
-
 
 /* STATIC VARIABLES AND FUNCTIONS
 
@@ -1103,13 +1278,7 @@ int main(){
 
 */
 
-
-
-
 // --------------------------------------------------------------------------------------------------------------
-
-
-
 
 /* CONDITIONS AND CONDITIONAL STATEMENTS
 
@@ -1180,7 +1349,7 @@ void guessRandom(){
     int guess;
 
     printf("Guess an integer between 1 and 100:\n");
-    
+
     while(guess != r){ // This while-loop iterates through the code until the conditon is met
         scanf("%d", &guess);
         if (guess > r){
@@ -1200,13 +1369,7 @@ int main(){
 
 */
 
-
-
-
 // --------------------------------------------------------------------------------------------------------------
-
-
-
 
 /* MULTIDIMENSIONAL ARRAYS
 
@@ -1255,10 +1418,10 @@ int main(){
 
     // Let us practice initializing an array with four rows and five columns
     int x[4][5] = {
-        {0, 1, 2, 3, 4}, // Initializers for row indexed by 0 
-        {5, 6, 7, 8, 9}, // Initializers for row indexed by 1 
-        {10, 11, 12, 13, 14}, // Initializers for row indexed by 2 
-        {15, 16, 17, 18, 19} // Initializers for row indexed by 3 
+        {0, 1, 2, 3, 4}, // Initializers for row indexed by 0
+        {5, 6, 7, 8, 9}, // Initializers for row indexed by 1
+        {10, 11, 12, 13, 14}, // Initializers for row indexed by 2
+        {15, 16, 17, 18, 19} // Initializers for row indexed by 3
     }
 
     // The inside braces indicate the desired row and are optional
@@ -1278,7 +1441,7 @@ int main(){
 -- tack comment terminator asterisk when running code snippet below --
 
 
-// The following code finds the average grades for a group of four students for two courses– 
+// The following code finds the average grades for a group of four students for two courses–
 // Calculus and Physics
 
 // To do this we will use a two-dimensional array called grades
@@ -1311,13 +1474,7 @@ int main(){
 
 */
 
-
-
-
 // --------------------------------------------------------------------------------------------------------------
-
-
-
 
 /* ONE-DIMENSIONAL ARRAYS
 
@@ -1366,20 +1523,14 @@ int main(){
     for(int i = 0; i < 10; i++){
         my_arr[i] = pow(i, 2); // To use powers we have to include <math.h>
     }
-    
+
     printAverage(my_arr, 10);
     return 0;
 }
 
 */
 
-
-
-
 // --------------------------------------------------------------------------------------------------------------
-
-
-
 
 /* VARIABLES & TYPES
 
@@ -1424,18 +1575,12 @@ int main(){
 
 */
 
-
-
-
 // --------------------------------------------------------------------------------------------------------------
-
-
-
 
 /* HELLO WORLD
 
 // Every C program uses libraries, allowing us to execute necessary functions
-// For example, a basic function 'printf' prints text to the screen, and is defined 
+// For example, a basic function 'printf' prints text to the screen, and is defined
 // in the 'stdio.h' header file
 
 // To be able to call printf, we must add the 'include <stdio.h>' directive
@@ -1450,8 +1595,5 @@ int main(){
 }
 
 */
-
-
-
 
 // --------------------------------------------------------------------------------------------------------------
