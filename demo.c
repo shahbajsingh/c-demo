@@ -4,6 +4,157 @@
 #include <time.h>
 #include <string.h>
 
+/* BINARY TREES
+ */
+
+// Binary trees are a type of data structure similar to linked lists in that each value
+// points to another sequentially, but trees are conceptualized differently
+
+//     g                  s                  9
+//    / \                / \                / \
+//   b   m              f   u              5   13
+//  / \                    / \                /  \
+// c   d                  t   y              11  15
+
+// Each node in a binary tree is connected to a left child and a right child
+// (those that are missing one or both point to null)
+
+// Binary trees can be implemented in a variety of ways, namely for binary search trees and
+// binary heaps, used for efficient searching and sorting algorithms
+
+// A binary tree is technically a special case of a 'K-ary' tree where K is 2
+
+// Operations we may expect to implement with a binary tree include insertion, deletion,
+// and traversal within the tree
+
+// The balance of a tree (whether there are more child nodes right or left of center)
+// decides how difficult it is to access and manipulate these members
+
+// If a tree is balanced, meaning the difference in the amount of left and right nodes is
+// one or less, predicting the depth (or height) of a tree is much easier
+
+typedef struct node
+{
+    int val;
+    struct node *left;
+    struct node *right;
+} node_t;
+
+void insert(node_t *tree, int val);
+void print_tree(node_t *current);
+void printDFS(node_t *current);
+
+int main()
+{
+    node_t *test_list = (node_t *)malloc(sizeof(node_t));
+
+    // set values explicitly, alternative would be calloc()
+    test_list->val = 0;
+    test_list->left = NULL;
+    test_list->right = NULL;
+
+    insert(test_list, 10);
+    insert(test_list, 5);
+    insert(test_list, 8);
+    insert(test_list, 7);
+    insert(test_list, 2);
+
+    printf("Depth-first search:\n");
+    printDFS(test_list);
+    printf("\n\n");
+
+    printf("Breadth-first search:\n");
+//    printBFS(test_list);
+    printf("\n");
+
+    // Output:
+    // Depth-first search:
+    // 10 5 2 8 7
+    //
+    // Breadth-first search:
+    //
+
+    return 0;
+}
+
+void insert(node_t *tree, int val)
+{
+    if (tree->val == 0)
+    {
+        // insert node on current empty position
+        tree->val = val;
+    }
+    else
+    {
+        if (val < tree->val)
+        {
+            // insert node left 
+            if (tree->left != NULL)
+            {
+                insert(tree->left, val);
+            }
+            else
+            {
+                tree->left = (node_t *)malloc(sizeof(node_t));
+
+                // set values explicitly, alternative would be calloc()
+                tree->left->val = val;
+                tree->left->left = NULL;
+                tree->left->right = NULL;
+            }
+        }
+        else
+        {
+            if (val >= tree->val)
+            {
+                // insert node right
+                if (tree->right != NULL)
+                {
+                    insert(tree->right, val);
+                }
+                else
+                {
+                    tree->right = (node_t *)malloc(sizeof(node_t));
+
+                    // set values explicitly, alternative would be calloc() 
+                    tree->right->val = val;
+                    tree->right->left = NULL;
+                    tree->right->right = NULL;
+                }
+            }
+        }
+    }
+}
+
+// DEPTH-FIRST SEARCH
+// DFS is an algorithm that traverses a tree or graph starting at the root and exploring
+// as far as possible down a branch before backtracking (hence depth-first)
+
+void printDFS(node_t *current)
+{
+    // note the use of recursion
+    if (current == NULL)
+        return; // security measure
+    if (current != NULL)
+        printf("%d ", current->val);
+    if (current->left != NULL)
+        printDFS(current->left);
+    if (current->right != NULL)
+        printDFS(current->right);
+}
+
+// TO-DO: printBFS()
+
+// BREADTH-FIRST SEARCH
+// BFS is an algorithm that traverses a tree or graph starting at the root and and visiting
+// nodes on the same level (of depth n) before descending branches
+
+void printBFS(node_t *current){
+
+}
+
+// --------------------------------------------------------------------------------------------------------------
+
 /* LINKED LISTS
 
 // Linked lists function as an array that can grow and shrink as needed,
@@ -108,7 +259,7 @@ int main(){
 }
 -- tack comment terminator asterisk when running code snippet below --
 
-*/
+
 // ITERATING OVER A LINKED LIST
 
 // Let's build a function that prints out all the items of a list
@@ -330,6 +481,8 @@ int main(void){
 
     return 0;
 }
+
+*/
 
 // --------------------------------------------------------------------------------------------------------------
 
