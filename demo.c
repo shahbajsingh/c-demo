@@ -33,12 +33,14 @@
 // If a tree is balanced, meaning the difference in the amount of left and right nodes is
 // one or less, predicting the depth (or height) of a tree is much easier
 
-typedef struct node
-{
-    int val;
-    struct node *left;
-    struct node *right;
-} node_t;
+struct node{                    // This code is but a longer version of the following:
+    int val;                    // typedef struct node{
+    struct node *left;          //      
+    struct node *right;         //      int val;
+};                              //      struct node *left, *right;
+                                //
+typedef struct node node_t;     //  } node_t;
+
 
 void insert(node_t *tree, int val);
 void print_tree(node_t *current);
@@ -77,49 +79,48 @@ int main()
     return 0;
 }
 
-void insert(node_t *tree, int val)
-{
-    if (tree->val == 0)
-    {
+void insert(node_t *tree, int val){
+    if (tree->val == 0){
+        
         // insert node on current empty position
         tree->val = val;
-    }
-    else
-    {
-        if (val < tree->val)
-        {
+
+    } else {
+        
+        if (val < tree->val) {
+        
             // insert node left 
-            if (tree->left != NULL)
-            {
+            if (tree->left != NULL){
                 insert(tree->left, val);
-            }
-            else
-            {
+        
+            } else {
+        
                 tree->left = (node_t *)malloc(sizeof(node_t));
 
                 // set values explicitly, alternative would be calloc()
                 tree->left->val = val;
                 tree->left->left = NULL;
                 tree->left->right = NULL;
+        
             }
-        }
-        else
-        {
-            if (val >= tree->val)
-            {
+        
+        } else {
+        
+            if (val >= tree->val) {
                 // insert node right
-                if (tree->right != NULL)
-                {
+                if (tree->right != NULL) {
+        
                     insert(tree->right, val);
-                }
-                else
-                {
+        
+                } else {
+        
                     tree->right = (node_t *)malloc(sizeof(node_t));
 
                     // set values explicitly, alternative would be calloc() 
                     tree->right->val = val;
                     tree->right->left = NULL;
                     tree->right->right = NULL;
+        
                 }
             }
         }
@@ -143,13 +144,54 @@ void printDFS(node_t *current)
         printDFS(current->right);
 }
 
-// TO-DO: printBFS()
-
 // BREADTH-FIRST SEARCH
+// (also known as level order traversal)
 // BFS is an algorithm that traverses a tree or graph starting at the root and and visiting
 // nodes on the same level (of depth n) before descending branches
 
+// To perform a breadth-first search we will be implementing a queue (FIFO) data structure
+
+typedef struct queueitem {
+    int val;
+    struct node *next;
+} queueitem_t;
+
+void enqueue(queueitem_t **head, int val) {
+    queueitem_t *new_node = malloc(sizeof(queueitem_t));
+    if (!new_node) return;
+
+    new_node->val = val;
+    new_node->next = *head;
+
+   *head = new_node;
+}
+
+int dequeue(queueitem_t **head) {
+    queueitem_t *current, *prev = NULL;
+    int retval = -1;
+
+    if (*head == NULL) return -1;
+
+    current = *head;
+    while (current->next != NULL) {
+    prev = current;
+    current = current->next;
+    }
+
+    retval = current->val;
+    free(current);
+
+    if (prev)
+        prev->next = NULL;
+    else
+        *head = NULL;
+
+    return retval;
+}
+
 void printBFS(node_t *current){
+
+
 
 }
 
