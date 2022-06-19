@@ -27,14 +27,36 @@ union intParts{
 
 int main(){
     union intParts parts;
-    parts.intval = 300; // this is an arbitrary number larger than one byte (integer 255)
+    parts.intval = 52093850; // this is an arbitrary number larger than one byte (integer 255)
 
     printf("The int %i consists of bytes\n[%i, %i, %i, %i]\n",
     parts.intval, parts.bytes[0], parts.bytes[1], parts.bytes[2], parts.bytes[3]);
 
     // Output:
-    // The int 300 consists of bytes
-    // [44, 1, 0, 0]
+    // The int 52093850 consists of bytes
+    // [-102, -29, 26, 3]
+
+
+    // Another method to go about this is the following
+
+    int intval = parts.intval;
+
+    printf("The int %i consists of bytes\n[%i, %i, %i, %i]\n",
+    intval, *((char*)&intval+0), *((char*)&intval+1), *((char*)&intval+2), *((char*)&intval+3));
+
+    // Output:
+    // The int 52093850 consists of bytes
+    // [-102, -29, 26, 3]
+
+
+    // Yet another method to go about this is the following with array syntax
+
+    printf("The int %i consists of bytes\n[%i, %i, %i, %i]\n",
+    intval, ((char*)&intval)[0], ((char*)&intval)[1], ((char*)&intval)[2], ((char*)&intval)[3]);
+
+    // Output:
+    // The int 52093850 consists of bytes
+    // [-102, -29, 26, 3]
 
     return 0;
 }
