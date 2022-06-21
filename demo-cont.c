@@ -137,9 +137,11 @@ int main(){
     change.quarter, change.dime, change.nickel, change.penny);
 
     float sum = 0;
-    sum += (0.25 * change.coins[0]) + (0.1 * change.coins[1]) + (0.05 * change.coins[2]) + (0.01 + change.coins[3]);
+    sum += (0.25 * change.coins[0]);
+    sum += (0.1 * change.coins[1]);
+    sum += (0.05 * change.coins[2]);
+    sum += (0.01 * change.coins[3]);
     printf("%f", sum);
     printf("This amounts to %.2f dollars\n", sum);
     
-    // TO-DO: sum of 1,1,1,1 prints to 1.41000
 }
