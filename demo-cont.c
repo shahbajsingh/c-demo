@@ -137,11 +137,19 @@ int main(){
     change.quarter, change.dime, change.nickel, change.penny);
 
     float sum = 0;
-    sum += (0.25 * change.coins[0]);
-    sum += (0.1 * change.coins[1]);
-    sum += (0.05 * change.coins[2]);
-    sum += (0.01 * change.coins[3]);
-    printf("%f", sum);
-    printf("This amounts to %.2f dollars\n", sum);
+    sum += (0.25 * change.coins[0]) + (0.1 * change.coins[1]) + (0.05 * change.coins[2]) + (0.01 * change.coins[3]);
+
+    printf("This amounts to $%.2f\n", sum);
+
+    // Output:
+    // Enter values for quarters, dimes, nickels, and pennies
+    // Then, enter any value to escape
+    // 3
+    // 4
+    // 5
+    // 6
+    // 0
+    // There are 3 quarters, 4 dimes, 5 nickels, and 6 pennies
+    // This amounts to $1.46
     
 }
